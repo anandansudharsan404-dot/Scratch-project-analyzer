@@ -1,0 +1,1011 @@
+<html>
+
+<head>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: lightblue;
+      color: white;
+      
+    }
+    
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0)
+    }
+
+    .app {
+      padding: 1.5rem 0
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #7C3AED, #4F46E5, #2563EB);
+      border-radius: 16px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 16px
+    }
+
+    .hero-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .hero-icon i {
+      font-size: 26px;
+      color: #fff
+    }
+
+    .hero h1 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 3px
+    }
+
+    .hero p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.75)
+    }
+
+    .drop-zone {
+      border: 2px dashed #C4B5FD;
+      border-radius: 16px;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      background: linear-gradient(135deg, #F5F3FF, #EEF2FF);
+      transition: all .2s;
+      margin-bottom: 1.5rem
+    }
+
+    .drop-zone:hover,
+    .drop-zone.over {
+      border-color: #7C3AED;
+      background: linear-gradient(135deg, #EDE9FE, #E0E7FF)
+    }
+
+    .dz-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #7C3AED, #4F46E5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem
+    }
+
+    .dz-icon i {
+      font-size: 26px;
+      color: #fff
+    }
+
+    .drop-zone h2 {
+      font-size: 16px;
+      font-weight: 500;
+      color: #3730A3;
+      margin-bottom: .35rem
+    }
+
+    .drop-zone p {
+      font-size: 13px;
+      color: #6D28D9
+    }
+
+    .btn-upload {
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 20px;
+      border-radius: 10px;
+      border: none;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(135deg, #7C3AED, #4F46E5);
+      color: #fff
+    }
+
+    .btn-upload:hover {
+      opacity: .9
+    }
+
+    .results {
+      display: none
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 10px
+    }
+
+    .file-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: linear-gradient(135deg, #EDE9FE, #E0E7FF);
+      border-radius: 10px;
+      border: 1px solid #C4B5FD
+    }
+
+    .file-badge i {
+      font-size: 16px;
+      color: #6D28D9
+    }
+
+    .file-badge span {
+      font-size: 13px;
+      font-weight: 500;
+      color: #3730A3
+    }
+
+    .btn-reset {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      padding: 7px 14px;
+      cursor: pointer;
+      border-radius: 10px;
+      border: 1px solid #C4B5FD;
+      background: #F5F3FF;
+      color: #6D28D9;
+      font-family: var(--font-sans)
+    }
+
+    .btn-reset:hover {
+      background: #EDE9FE
+    }
+
+    .level-banner {
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem
+    }
+
+    .level-banner.basic {
+      background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+      border: 1.5px solid #FCD34D
+    }
+
+    .level-banner.developing {
+      background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
+      border: 1.5px solid #60A5FA
+    }
+
+    .level-banner.master {
+      background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+      border: 1.5px solid #34D399
+    }
+
+    .donut-wrap {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      flex-shrink: 0
+    }
+
+    .donut-wrap canvas {
+      width: 72px;
+      height: 72px
+    }
+
+    .donut-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center
+    }
+
+    .donut-num {
+      font-size: 18px;
+      font-weight: 500
+    }
+
+    .donut-denom {
+      font-size: 10px
+    }
+
+    .basic .donut-num {
+      color: #92400E
+    }
+
+    .basic .donut-denom {
+      color: #B45309
+    }
+
+    .developing .donut-num {
+      color: #1E40AF
+    }
+
+    .developing .donut-denom {
+      color: #3B82F6
+    }
+
+    .master .donut-num {
+      color: #065F46
+    }
+
+    .master .donut-denom {
+      color: #059669
+    }
+
+    .level-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: .35rem
+    }
+
+    .basic .level-pill {
+      background: #FCD34D;
+      color: #78350F
+    }
+
+    .developing .level-pill {
+      background: #60A5FA;
+      color: #1E3A8A
+    }
+
+    .master .level-pill {
+      background: #34D399;
+      color: #064E3B
+    }
+
+    .level-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: .25rem
+    }
+
+    .basic .level-name {
+      color: #78350F
+    }
+
+    .developing .level-name {
+      color: #1E40AF
+    }
+
+    .master .level-name {
+      color: #065F46
+    }
+
+    .level-desc {
+      font-size: 13px;
+      line-height: 1.5
+    }
+
+    .basic .level-desc {
+      color: #92400E
+    }
+
+    .developing .level-desc {
+      color: #1D4ED8
+    }
+
+    .master .level-desc {
+      color: #047857
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 1.25rem
+    }
+
+    .stat {
+      border-radius: 12px;
+      padding: .9rem 1rem
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: .2rem
+    }
+
+    .stat-val {
+      font-size: 24px;
+      font-weight: 500
+    }
+
+    .stat-0 {
+      background: linear-gradient(135deg, #EDE9FE, #DDD6FE);
+      border: 1px solid #C4B5FD
+    }
+
+    .stat-0 .stat-label {
+      color: #6D28D9
+    }
+
+    .stat-0 .stat-val {
+      color: #4C1D95
+    }
+
+    .stat-1 {
+      background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
+      border: 1px solid #93C5FD
+    }
+
+    .stat-1 .stat-label {
+      color: #1D4ED8
+    }
+
+    .stat-1 .stat-val {
+      color: #1E3A8A
+    }
+
+    .stat-2 {
+      background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+      border: 1px solid #6EE7B7
+    }
+
+    .stat-2 .stat-label {
+      color: #059669
+    }
+
+    .stat-2 .stat-val {
+      color: #064E3B
+    }
+
+    .stat-3 {
+      background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+      border: 1px solid #FCD34D
+    }
+
+    .stat-3 .stat-label {
+      color: #D97706
+    }
+
+    .stat-3 .stat-val {
+      color: #78350F
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap
+    }
+
+    .tab {
+      font-size: 13px;
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      color: #6B7280;
+      background: #F3F4F6;
+      font-family: var(--font-sans);
+      font-weight: 500
+    }
+
+    .tab.on {
+      background: linear-gradient(135deg, #7C3AED, #4F46E5);
+      color: #fff;
+      border-color: transparent
+    }
+
+    .tab:hover:not(.on) {
+      background: #E5E7EB;
+      border-color: #D1D5DB
+    }
+
+    .pane {
+      display: none
+    }
+
+    .pane.on {
+      display: block
+    }
+
+    .rubric-row {
+      display: grid;
+      grid-template-columns: 190px 1fr 44px 88px;
+      align-items: center;
+      gap: 10px;
+      padding: .65rem 0;
+      border-bottom: 1px solid #F3F4F6
+    }
+
+    .rubric-row:last-child {
+      border-bottom: none
+    }
+
+    .rr-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1F2937
+    }
+
+    .rr-detail {
+      font-size: 11px;
+      color: #9CA3AF;
+      margin-top: 2px
+    }
+
+    .bar-track {
+      height: 8px;
+      background: #F3F4F6;
+      border-radius: 4px;
+      overflow: hidden
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px
+    }
+
+    .rr-score {
+      font-size: 13px;
+      font-weight: 500;
+      text-align: right;
+      color: #6B7280
+    }
+
+    .pill {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-align: center;
+      white-space: nowrap
+    }
+
+    .pill-0 {
+      background: #F3F4F6;
+      color: #9CA3AF
+    }
+
+    .pill-1 {
+      background: #FEF3C7;
+      color: #92400E
+    }
+
+    .pill-2 {
+      background: #DBEAFE;
+      color: #1E40AF
+    }
+
+    .pill-3 {
+      background: #D1FAE5;
+      color: #065F46
+    }
+
+    .radar-section {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 1rem;
+      background: linear-gradient(135deg, #F5F3FF, #EEF2FF);
+      border-radius: 16px;
+      margin-bottom: 1.25rem
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #6B7280;
+      padding: 4px 0
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .cats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 8px;
+      margin-bottom: 1.25rem
+    }
+
+    .cat-card {
+      border-radius: 12px;
+      padding: .8rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .cat-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .cat-icon i {
+      font-size: 17px;
+      color: #fff
+    }
+
+    .cat-name {
+      font-size: 12px;
+      font-weight: 500
+    }
+
+    .cat-count {
+      font-size: 18px;
+      font-weight: 500
+    }
+
+    .topblocks-wrap {
+      background: #F9FAFB;
+      border-radius: 12px;
+      padding: 1rem
+    }
+
+    .topblocks-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: #6B7280;
+      margin-bottom: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .06em
+    }
+
+    .tb-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: .45rem 0;
+      border-bottom: 1px solid #F3F4F6
+    }
+
+    .tb-row:last-child {
+      border-bottom: none
+    }
+
+    .tb-name {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: #6B7280;
+      width: 200px;
+      flex-shrink: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap
+    }
+
+    .tb-bar {
+      flex: 1;
+      height: 6px;
+      background: #E5E7EB;
+      border-radius: 3px;
+      overflow: hidden
+    }
+
+    .tb-fill {
+      height: 100%;
+      border-radius: 3px
+    }
+
+    .tb-n {
+      font-size: 12px;
+      color: #9CA3AF;
+      min-width: 28px;
+      text-align: right
+    }
+
+    .issue {
+      display: flex;
+      gap: 12px;
+      padding: .9rem 1rem;
+      border-radius: 12px;
+      margin-bottom: .6rem
+    }
+
+    .issue.warn {
+      background: linear-gradient(135deg, #FEF3C7, #FEF9C3);
+      border: 1.5px solid #FCD34D
+    }
+
+    .issue.ok {
+      background: linear-gradient(135deg, #D1FAE5, #ECFDF5);
+      border: 1.5px solid #6EE7B7
+    }
+
+    .issue.info {
+      background: linear-gradient(135deg, #DBEAFE, #EFF6FF);
+      border: 1.5px solid #93C5FD
+    }
+
+    .issue-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 1px
+    }
+
+    .issue.warn .issue-icon {
+      color: #D97706
+    }
+
+    .issue.ok .issue-icon {
+      color: #059669
+    }
+
+    .issue.info .issue-icon {
+      color: #2563EB
+    }
+
+    .issue-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 2px
+    }
+
+    .issue.warn .issue-title {
+      color: #78350F
+    }
+
+    .issue.ok .issue-title {
+      color: #064E3B
+    }
+
+    .issue.info .issue-title {
+      color: #1E3A8A
+    }
+
+    .issue-desc {
+      font-size: 12px;
+      line-height: 1.5
+    }
+
+    .issue.warn .issue-desc {
+      color: #92400E
+    }
+
+    .issue.ok .issue-desc {
+      color: #065F46
+    }
+
+    .issue.info .issue-desc {
+      color: #1D4ED8
+    }
+
+    .sprites-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: .5rem
+    }
+
+    .sprite-chip {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500
+    }
+
+    .sprite-chip.stage {
+      background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+      border: 1px solid #FCD34D;
+      color: #78350F
+    }
+
+    .sprite-chip.sprite {
+      background: linear-gradient(135deg, #EDE9FE, #DDD6FE);
+      border: 1px solid #C4B5FD;
+      color: #4C1D95
+    }
+
+    .sprite-chip i {
+      font-size: 15px
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #9CA3AF;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin: .5rem 0 .75rem
+    }
+  </style>
+</head>
+
+<body>
+  <h2 class="sr-only">Scratch project analyzer — colorful UI with CT rubric, radar chart, and block breakdown</h2>
+  <div class="app">
+
+    <div class="hero">
+      <div class="hero-icon"><i class="ti ti-puzzle" aria-hidden="true"></i></div>
+      <div>
+        <h1>Scratch project analyzer</h1>
+        <p>Upload your .sb3 · get a full computational thinking report instantly</p>
+      </div>
+    </div>
+
+    <div class="drop-zone" id="dz" onclick="document.getElementById('fi').click()">
+      <div class="dz-icon"><i class="ti ti-upload" aria-hidden="true"></i></div>
+      <h2>Drop your .sb3 file here</h2>
+      <p>Analyzed entirely in your browser · no upload to any server</p>
+      <button class="btn-upload" onclick="event.stopPropagation();document.getElementById('fi').click()">
+        <i class="ti ti-file" aria-hidden="true"></i> Choose .sb3 file
+      </button>
+    </div>
+    <input type="file" id="fi" accept=".sb3" style="display:none">
+
+    <div class="results" id="results">
+      <div class="top-bar">
+        <div class="file-badge"><i class="ti ti-file-code" aria-hidden="true"></i><span id="fname">project.sb3</span>
+        </div>
+        <button class="btn-reset" onclick="resetAll()"><i class="ti ti-refresh" aria-hidden="true"></i> New
+          file</button>
+      </div>
+
+      <div class="level-banner" id="level-banner">
+        <div class="donut-wrap">
+          <canvas id="donut" width="144" height="144"></canvas>
+          <div class="donut-label">
+            <span class="donut-num" id="donut-num">0</span>
+            <span class="donut-denom">/21</span>
+          </div>
+        </div>
+        <div>
+          <div class="level-pill" id="level-pill">basic</div>
+          <div class="level-name" id="level-name">Getting started</div>
+          <div class="level-desc" id="level-desc"></div>
+        </div>
+      </div>
+
+      <div class="stats-grid" id="stats-grid"></div>
+
+      <div class="tabs">
+        <button class="tab on" onclick="showPane('rubric',this)"><i class="ti ti-chart-radar" aria-hidden="true"
+            style="font-size:14px;margin-right:4px"></i>CT Rubric</button>
+        <button class="tab" onclick="showPane('blocks',this)"><i class="ti ti-stack" aria-hidden="true"
+            style="font-size:14px;margin-right:4px"></i>Blocks</button>
+        <button class="tab" onclick="showPane('issues',this)"><i class="ti ti-alert-triangle" aria-hidden="true"
+            style="font-size:14px;margin-right:4px"></i>Issues</button>
+        <button class="tab" onclick="showPane('sprites',this)"><i class="ti ti-ghost" aria-hidden="true"
+            style="font-size:14px;margin-right:4px"></i>Sprites</button>
+      </div>
+
+      <div class="pane on" id="pane-rubric">
+        <div class="radar-section">
+          <canvas id="radar" width="200" height="200" style="flex-shrink:0"></canvas>
+          <div id="radar-legend" style="padding-top:.5rem"></div>
+        </div>
+        <div id="rubric-rows"></div>
+      </div>
+      <div class="pane" id="pane-blocks">
+        <div class="cats-grid" id="cats-grid"></div>
+        <div class="topblocks-wrap">
+          <div class="topblocks-title">Top opcodes</div>
+          <div id="topblocks"></div>
+        </div>
+      </div>
+      <div class="pane" id="pane-issues">
+        <div id="issues-list"></div>
+      </div>
+      <div class="pane" id="pane-sprites">
+        <div class="section-label">All targets</div>
+        <div class="sprites-wrap" id="sprites-wrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script>
+    const dz = document.getElementById('dz');
+    dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over') });
+    dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+    dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) processFile(f) });
+    document.getElementById('fi').addEventListener('change', e => { if (e.target.files[0]) processFile(e.target.files[0]) });
+
+    function showPane(name, btn) {
+      document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+      document.getElementById('pane-' + name).classList.add('on');
+      if (btn) btn.classList.add('on');
+    }
+    function resetAll() { document.getElementById('results').style.display = 'none'; dz.style.display = ''; document.getElementById('fi').value = ''; }
+
+    async function processFile(file) {
+      try {
+        const zip = await JSZip.loadAsync(await file.arrayBuffer());
+        const jf = zip.file('project.json');
+        if (!jf) { alert('No project.json found in this .sb3'); return; }
+        render(JSON.parse(await jf.async('string')), file.name);
+      } catch (e) { alert('Error: ' + e.message); }
+    }
+
+    function getBlocks(targets) { const a = []; for (const t of targets) for (const id in (t.blocks || {})) { const b = t.blocks[id]; if (b && b.opcode) a.push({ ...b, _s: t.name, _st: t.isStage }); } return a; }
+    function countScripts(targets) { let n = 0; for (const t of targets) for (const id in (t.blocks || {})) { const b = t.blocks[id]; if (b && b.topLevel && !b.shadow) n++; } return n; }
+
+    function computeCT(opcodes, opMap, targets) {
+      const has = o => opcodes.includes(o), cnt = o => opMap[o] || 0, any = ops => ops.some(o => opcodes.includes(o));
+      const sp = targets.filter(t => !t.isStage);
+      const A = () => { let s = 0; const hc = has('procedures_definition'), hcl = any(['control_create_clone_of', 'control_create_clone_of_menu']), ms = sp.length > 1; if (hc || hcl) s = Math.min(s + 2, 3); if (ms) s = Math.min(s + 1, 3); return { score: s, detail: s === 0 ? 'No custom blocks or clones' : `${hc ? 'Custom blocks ' : ''}${hcl ? 'Clones ' : ''}${ms ? 'Multiple sprites' : ''}` }; };
+      const L = () => { const ifs = cnt('control_if') + cnt('control_if_else'), ops = any(['operator_and', 'operator_or', 'operator_not']); if (ifs === 0) return { score: 0, detail: 'No conditionals' }; if (ifs >= 2 && ops) return { score: 3, detail: `${ifs} conditionals + boolean ops` }; if (ifs >= 2 || ops) return { score: 2, detail: `${ifs} if/else blocks` }; return { score: 1, detail: 'One basic condition' }; };
+      const S = () => { const b = cnt('event_broadcast') + cnt('event_broadcastandwait'), r = cnt('event_whenbroadcastreceived'); if (b === 0 && r === 0) return { score: 0, detail: 'No broadcast/receive' }; if (b >= 2 && r >= 2) return { score: 3, detail: `${b} broadcasts · ${r} receivers` }; if (b >= 1 && r >= 1) return { score: 2, detail: 'Broadcast and receive used' }; return { score: 1, detail: 'Partial messaging' }; };
+      const P = () => { const hats = ['event_whenflagclicked', 'event_whenkeypressed', 'event_whenthisspriteclicked', 'event_whenbroadcastreceived'], tot = hats.reduce((s, h) => s + cnt(h), 0), types = hats.filter(h => cnt(h) > 0).length; if (tot <= 1) return { score: 0, detail: 'Single event trigger' }; if (tot >= 4 && types >= 2) return { score: 3, detail: `${tot} scripts · ${types} event types` }; if (tot >= 2) return { score: 2, detail: `${tot} event scripts` }; return { score: 1, detail: 'Multiple scripts, one type' }; };
+      const F = () => { const loops = [cnt('control_repeat'), cnt('control_forever'), cnt('control_repeat_until'), cnt('control_wait_until')], tot = loops.reduce((a, b) => a + b, 0), types = loops.filter(c => c > 0).length; if (tot === 0) return { score: 0, detail: 'No loops found' }; if (tot >= 3 && types >= 2) return { score: 3, detail: `${tot} loops · ${types} types` }; if (tot >= 2) return { score: 2, detail: `${tot} loop blocks` }; return { score: 1, detail: 'One basic loop' }; };
+      const I = () => { const inp = [cnt('event_whenkeypressed'), cnt('event_whenthisspriteclicked'), cnt('sensing_keypressed'), cnt('sensing_mousedown'), cnt('sensing_askandwait')], tot = inp.reduce((a, b) => a + b, 0), types = inp.filter(c => c > 0).length; if (tot === 0) return { score: 0, detail: 'No user interaction' }; if (tot >= 3 && types >= 2) return { score: 3, detail: `${tot} interaction blocks` }; if (tot >= 2) return { score: 2, detail: `${tot} interaction events` }; return { score: 1, detail: 'Basic click/key' }; };
+      const D = () => { const uv = any(['data_setvariableto', 'data_changevariableby', 'data_showvariable']), ul = any(['data_addtolist', 'data_deleteoflist', 'data_insertatlist']), um = any(['operator_add', 'operator_subtract', 'operator_multiply', 'operator_divide']); if (!uv && !ul) return { score: 0, detail: 'No variables or lists' }; if (ul) return { score: 3, detail: 'Variables and lists used' }; if (uv && um) return { score: 2, detail: 'Variables with arithmetic' }; return { score: 1, detail: 'Basic variable use' }; };
+      return { Abstraction: A(), 'Logical thinking': L(), Synchronization: S(), Parallelism: P(), 'Flow control': F(), Interactivity: I(), 'Data representation': D() };
+    }
+
+    function render(proj, fname) {
+      const targets = proj.targets || [], sprites = targets.filter(t => !t.isStage), blocks = getBlocks(targets), opcodes = blocks.map(b => b.opcode), opMap = {};
+      opcodes.forEach(o => opMap[o] = (opMap[o] || 0) + 1);
+      const scripts = countScripts(targets), costumes = targets.reduce((s, t) => s + (t.costumes || []).length, 0);
+      const ct = computeCT(opcodes, opMap, targets), total = Object.values(ct).reduce((a, b) => a + b.score, 0);
+      const level = total <= 7 ? 'basic' : total <= 14 ? 'developing' : 'master';
+
+      document.getElementById('fname').textContent = fname;
+
+      const banner = document.getElementById('level-banner'); banner.className = 'level-banner ' + level;
+      document.getElementById('level-pill').textContent = level;
+      document.getElementById('level-name').textContent = level === 'basic' ? 'Getting started' : level === 'developing' ? 'Developing skills' : 'Master coder';
+      document.getElementById('level-desc').textContent = level === 'basic' ? 'Try adding loops, conditions, and user interaction.' : level === 'developing' ? 'Good progress! Add custom blocks, variables, or messages.' : 'Excellent work across all CT dimensions!';
+      document.getElementById('donut-num').textContent = total;
+      drawDonut(total, 21, level);
+
+      const statColors = ['stat-0', 'stat-1', 'stat-2', 'stat-3'];
+      const statItems = [{ l: 'Sprites', v: sprites.length }, { l: 'Blocks', v: blocks.length }, { l: 'Scripts', v: scripts }, { l: 'Costumes', v: costumes }];
+      document.getElementById('stats-grid').innerHTML = statItems.map((x, i) => `<div class="stat ${statColors[i]}"><div class="stat-label">${x.l}</div><div class="stat-val">${x.v}</div></div>`).join('');
+
+      renderRubric(ct); drawRadar(ct); renderBlocks(opMap); renderIssues(opcodes, opMap, ct); renderSprites(targets);
+
+      dz.style.display = 'none'; document.getElementById('results').style.display = 'block';
+    }
+
+    function drawDonut(val, max, level) {
+      const c = document.getElementById('donut'), ctx = c.getContext('2d'), r = 54, cx = 72, cy = 72, lw = 11;
+      const cols = { basic: '#F59E0B', developing: '#3B82F6', master: '#10B981' };
+      ctx.clearRect(0, 0, 144, 144);
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.strokeStyle = 'rgba(0,0,0,0.08)'; ctx.lineWidth = lw; ctx.stroke();
+      const a = (val / max) * Math.PI * 2;
+      ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + a); ctx.strokeStyle = cols[level]; ctx.lineWidth = lw; ctx.lineCap = 'round'; ctx.stroke();
+    }
+
+    const catMeta = {
+      motion: { label: 'Motion', icon: 'ti-arrows-move', bg: '#3B82F6' },
+      control: { label: 'Control', icon: 'ti-settings-2', bg: '#F59E0B' },
+      events: { label: 'Events', icon: 'ti-bolt', bg: '#EC4899' },
+      looks: { label: 'Looks', icon: 'ti-eye', bg: '#8B5CF6' },
+      sound: { label: 'Sound', icon: 'ti-volume', bg: '#10B981' },
+      sensing: { label: 'Sensing', icon: 'ti-radar', bg: '#06B6D4' },
+      operator: { label: 'Operators', icon: 'ti-math-function', bg: '#84CC16' },
+      data: { label: 'Variables', icon: 'ti-database', bg: '#F97316' },
+      procedures: { label: 'My blocks', icon: 'ti-puzzle', bg: '#6366F1' }
+    };
+    const topColors = ['#7C3AED', '#4F46E5', '#2563EB', '#0891B2', '#059669', '#D97706', '#DC2626', '#9333EA', '#0284C7', '#65A30D'];
+
+    function renderBlocks(opMap) {
+      const cats = {}; for (const op in opMap) { const c = op.split('_')[0]; cats[c] = (cats[c] || 0) + opMap[op]; }
+      document.getElementById('cats-grid').innerHTML = Object.entries(cats).sort((a, b) => b[1] - a[1]).map(([c, n]) => {
+        const m = catMeta[c] || { label: c, icon: 'ti-cube', bg: '#9CA3AF' };
+        return `<div class="cat-card" style="background:${m.bg}18;border:1px solid ${m.bg}44">
+      <div class="cat-icon" style="background:${m.bg}"><i class="ti ${m.icon}" aria-hidden="true"></i></div>
+      <div><div class="cat-name" style="color:${m.bg}">${m.label}</div><div class="cat-count" style="color:${m.bg}">${n}</div></div>
+    </div>`;
+      }).join('');
+      const top = Object.entries(opMap).sort((a, b) => b[1] - a[1]).slice(0, 10);
+      document.getElementById('topblocks').innerHTML = top.map(([op, n], i) => `
+    <div class="tb-row">
+      <div class="tb-name">${op}</div>
+      <div class="tb-bar"><div class="tb-fill" style="width:${Math.round((n / top[0][1]) * 100)}%;background:${topColors[i]}"></div></div>
+      <div class="tb-n">${n}</div>
+    </div>`).join('');
+    }
+
+    function renderRubric(ct) {
+      const barColors = ['#E5E7EB', '#FCD34D', '#60A5FA', '#34D399'];
+      const pills = ['not used', 'basic', 'developing', 'master'];
+      document.getElementById('rubric-rows').innerHTML = Object.entries(ct).map(([name, info]) => `
+    <div class="rubric-row">
+      <div><div class="rr-name">${name}</div><div class="rr-detail">${info.detail}</div></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round((info.score / 3) * 100)}%;background:${barColors[info.score]}"></div></div>
+      <div class="rr-score">${info.score}/3</div>
+      <span class="pill pill-${info.score}">${pills[info.score]}</span>
+    </div>`).join('');
+    }
+
+    function drawRadar(ct) {
+      const canvas = document.getElementById('radar'), ctx = canvas.getContext('2d');
+      const keys = Object.keys(ct), vals = keys.map(k => ct[k].score), N = keys.length, cx = 100, cy = 100, r = 72;
+      ctx.clearRect(0, 0, 200, 200);
+      for (let g = 1; g <= 3; g++) {
+        ctx.beginPath();
+        for (let i = 0; i < N; i++) { const a = (i / N) * Math.PI * 2 - Math.PI / 2, gr = (g / 3) * r; ctx.lineTo(cx + Math.cos(a) * gr, cy + Math.sin(a) * gr); }
+        ctx.closePath(); ctx.strokeStyle = 'rgba(99,102,241,0.15)'; ctx.lineWidth = 1; ctx.stroke();
+      }
+      for (let i = 0; i < N; i++) { const a = (i / N) * Math.PI * 2 - Math.PI / 2; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r); ctx.strokeStyle = 'rgba(99,102,241,0.15)'; ctx.lineWidth = 1; ctx.stroke(); }
+      ctx.beginPath();
+      for (let i = 0; i < N; i++) { const a = (i / N) * Math.PI * 2 - Math.PI / 2, rv = (vals[i] / 3) * r; ctx[i === 0 ? 'moveTo' : 'lineTo'](cx + Math.cos(a) * rv, cy + Math.sin(a) * rv); }
+      ctx.closePath(); ctx.fillStyle = 'rgba(99,102,241,0.18)'; ctx.fill(); ctx.strokeStyle = '#6366F1'; ctx.lineWidth = 2.5; ctx.stroke();
+      for (let i = 0; i < N; i++) { const a = (i / N) * Math.PI * 2 - Math.PI / 2, rv = (vals[i] / 3) * r; ctx.beginPath(); ctx.arc(cx + Math.cos(a) * rv, cy + Math.sin(a) * rv, 4, 0, Math.PI * 2); ctx.fillStyle = '#6366F1'; ctx.fill(); }
+      ctx.font = 'bold 10px system-ui'; ctx.fillStyle = '#6B7280'; ctx.textAlign = 'center';
+      const short = ['Abstract', 'Logic', 'Sync', 'Parallel', 'Flow', 'Interact', 'Data'];
+      for (let i = 0; i < N; i++) { const a = (i / N) * Math.PI * 2 - Math.PI / 2; ctx.fillText(short[i], cx + Math.cos(a) * (r + 16), cy + Math.sin(a) * (r + 16) + 4); }
+
+      const gradColors = [['#E5E7EB', 'Not used'], ['#FCD34D', 'Basic'], ['#60A5FA', 'Developing'], ['#34D399', 'Master']];
+      document.getElementById('radar-legend').innerHTML = `
+    <div style="font-size:12px;font-weight:500;color:#6B7280;margin-bottom:.6rem">Score levels</div>
+    ${gradColors.map(([c, l]) => `<div class="legend-row"><div class="legend-dot" style="background:${c};border:1px solid rgba(0,0,0,.1)"></div><span>${l}</span></div>`).join('')}
+    <div style="margin-top:.75rem;font-size:11px;color:#9CA3AF;line-height:1.5">Bigger area = stronger project<br>Each axis = one CT dimension</div>`;
+    }
+
+    function renderIssues(opcodes, opMap, ct) {
+      const has = o => opcodes.includes(o), any = ops => ops.some(o => opcodes.includes(o));
+      const issues = [];
+      if (!has('event_whenflagclicked')) issues.push({ t: 'warn', title: 'No green flag trigger', desc: 'Add "when green flag clicked" so your project runs on start.' });
+      if (has('control_forever') && !has('control_stop')) issues.push({ t: 'warn', title: 'Forever loop without stop', desc: 'Your forever loop has no exit — the project may never stop.' });
+      if (!any(['looks_say', 'looks_sayforsecs', 'sensing_askandwait'])) issues.push({ t: 'warn', title: 'No visible output', desc: 'Add "say", "think", or "ask" blocks so the user sees feedback.' });
+      if (ct['Logical thinking'].score === 0) issues.push({ t: 'warn', title: 'No conditions used', desc: 'Add "if/else" blocks to react to different situations.' });
+      if (ct['Flow control'].score === 0) issues.push({ t: 'warn', title: 'No loops found', desc: '"Repeat" and "forever" loops reduce code and add power.' });
+      if (ct['Data representation'].score === 0) issues.push({ t: 'info', title: 'Try using variables', desc: 'Variables store scores, names, and counters — great for games!' });
+      if (ct['Synchronization'].score === 0) issues.push({ t: 'info', title: 'Try message passing', desc: '"Broadcast" and "when I receive" coordinate sprites beautifully.' });
+      if (ct['Abstraction'].score >= 2) issues.push({ t: 'ok', title: 'Great abstraction', desc: 'Custom blocks or clones show organized, reusable thinking.' });
+      if (ct['Parallelism'].score >= 2) issues.push({ t: 'ok', title: 'Strong parallelism', desc: 'Multiple event scripts running together — excellent design!' });
+      if (ct['Interactivity'].score >= 2) issues.push({ t: 'ok', title: 'Great interactivity', desc: 'Keyboard, mouse, and ask blocks make your project engaging.' });
+      if (issues.length === 0) issues.push({ t: 'ok', title: 'No major issues found', desc: 'Everything looks great! Push for even more complexity to hit master.' });
+      const icons = { warn: 'ti-alert-triangle', ok: 'ti-circle-check', info: 'ti-info-circle' };
+      document.getElementById('issues-list').innerHTML = issues.map(i => `
+    <div class="issue ${i.t}">
+      <i class="ti ${icons[i.t]} issue-icon" aria-hidden="true"></i>
+      <div><div class="issue-title">${i.title}</div><div class="issue-desc">${i.desc}</div></div>
+    </div>`).join('');
+    }
+
+    function renderSprites(targets) {
+      document.getElementById('sprites-wrap').innerHTML = targets.map(t => `
+    <div class="sprite-chip ${t.isStage ? 'stage' : 'sprite'}">
+      <i class="ti ${t.isStage ? 'ti-photo' : 'ti-ghost'}" aria-hidden="true"></i>${t.isStage ? 'Stage' : t.name}
+    </div>`).join('');
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</body>
+
+</html>
